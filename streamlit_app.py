@@ -16,6 +16,8 @@ st.set_page_config(
     layout="centered",
     initial_sidebar_state="expanded",
 )
+
+
 class ChatConfig:
     """Configuration manager for chat settings"""
 
@@ -85,17 +87,17 @@ class ParameterFormatter:
             return custom_prompt
 
         return f"""
-        You are {self.chatbot_identity['name']}, a {self.chatbot_identity['role']}.
+        You are {self.chatbot_identity["name"]}, a {self.chatbot_identity["role"]}.
         
-        PERSONALITY: {self.chatbot_identity['personality']}
-        EXPERTISE: {self.chatbot_identity['expertise']}
-        COMMUNICATION STYLE: {self.chatbot_identity['style']}
-        BACKSTORY: {self.chatbot_identity['backstory']}
+        PERSONALITY: {self.chatbot_identity["personality"]}
+        EXPERTISE: {self.chatbot_identity["expertise"]}
+        COMMUNICATION STYLE: {self.chatbot_identity["style"]}
+        BACKSTORY: {self.chatbot_identity["backstory"]}
         
         Key behaviors:
-        - Always introduce yourself as {self.chatbot_identity['name']}
-        - Maintain your {self.chatbot_identity['personality']} tone
-        - Use your expertise in {self.chatbot_identity['expertise']} to provide helpful guidance
+        - Always introduce yourself as {self.chatbot_identity["name"]}
+        - Maintain your {self.chatbot_identity["personality"]} tone
+        - Use your expertise in {self.chatbot_identity["expertise"]} to provide helpful guidance
         - Occasionally reference your backstory naturally
         - Be engaging and encouraging
         
@@ -120,8 +122,8 @@ class ParameterFormatter:
             "max_tokens": max_tokens,
         }
 
-
         return params
+
 
 class ChatInterface:
     """Main chat interface handler"""
@@ -218,7 +220,6 @@ class ChatInterface:
                 self.state_manager.clear_history()
                 st.rerun()
 
-
     def render_chat_messages(self):
         """Render all chat messages"""
         for message in st.session_state.messages:
@@ -273,10 +274,8 @@ class ChatInterface:
                         user_input,
                     )
 
-
                     # Generate response
                     response = st.session_state.llm_app.chat(**chat_params)
-
 
                     # Display response
                     st.markdown(response)

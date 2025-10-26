@@ -3,11 +3,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 class Config:
-    
     def __init__(self):
         self.groq_api_key = os.getenv("GROQ_API_KEY")
-        self.openai_api_key =  os.getenv("OPENAI_API_KEY")
+        self.openai_api_key = os.getenv("OPENAI_API_KEY")
         self.CHATBOT_IDENTITY = {
             "name": "Atom",
             "role": "Conversation Assistant",
@@ -17,5 +17,5 @@ class Config:
             "backstory": "A basic bot created to demonstrate LLM capabilities",
         }
 
-        
+
 env_config = Config()

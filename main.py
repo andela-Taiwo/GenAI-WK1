@@ -9,7 +9,6 @@ from util import get_provider
 
 
 class LLMApp:
-
     def __init__(self, api_key=None, model="llama-3.3-70b-versatile"):
         """
         Initialize the LLM application
@@ -59,7 +58,7 @@ class LLMApp:
                     "content": f"""
                         {system_prompt}
                         Key attributes of the chatbot:
-                        Name: {env_config.CHATBOT_IDENTITY['name']}
+                        Name: {env_config.CHATBOT_IDENTITY["name"]}
                     """,
                 }
             )
@@ -80,14 +79,17 @@ class LLMApp:
         # Persist conversation history for this session
         try:
             # store both the user and assistant messages
-            self.conversation_history.append({"role": "user", "content": f"{user_message}"})
-            self.conversation_history.append({"role": "assistant", "content": assistant_message})
+            self.conversation_history.append(
+                {"role": "user", "content": f"{user_message}"}
+            )
+            self.conversation_history.append(
+                {"role": "assistant", "content": assistant_message}
+            )
         except Exception:
             # If anything goes wrong while persisting history, ignore to avoid breaking the response
             pass
 
         return assistant_message
-
 
     def formatModelParameters(self, model_name, temperature, max_tokens, messages):
         model_info = get_provider(model_name)
@@ -107,7 +109,6 @@ class LLMApp:
 
 
 if __name__ == "__main__":
-
     # Initialize the app
     app = LLMApp()
 
@@ -115,5 +116,3 @@ if __name__ == "__main__":
     message = input("What do you want to ask: ")
     response = app.chat(message)
     print(f"\nAssistant Response: {response}\n")
-
-
