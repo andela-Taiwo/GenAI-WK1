@@ -1,0 +1,17 @@
+[project]
+name = "simple-qa-app"
+version = "0.1.0"
+description = "question and answer app."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "groq>=0.33.0",
+    "openai>=2.6.1",
+    "python-dotenv>=1.1.1",
+    "streamlit>=1.50.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.14.2",
+]

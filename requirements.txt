@@ -1,0 +1,5 @@
+groq
+openai
+python-dotenv
+streamlit
+
