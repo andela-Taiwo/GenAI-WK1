@@ -5,6 +5,7 @@ Simple LLM Application using Groq API
 from groq import Groq
 from openai import OpenAI
 from config import env_config
+from util import get_provider
 
 
 class LLMApp:
@@ -24,12 +25,10 @@ class LLMApp:
             raise ValueError(
                 "Groq API key must be provided or set in `GROQ_API_KEY` environment variable"
             )
-        if model.startswith("openai/") or model in [
-            "gpt-5",
-            "gpt-5-mini",
-            "gpt-5-nano",
-        ]:
-            self.api_key = env_config.openai_api_key or env_config.openai_api_key
+        self.provider = get_provider(model)
+        if self.provider == "OpenAI":
+            print("ettintg hhehehehehe")
+            self.api_key = env_config.openai_api_key
             self.client = OpenAI(api_key=self.api_key)
         else:
             self.client = Groq(api_key=self.api_key)
@@ -70,7 +69,7 @@ class LLMApp:
             messages.extend(self.conversation_history)
 
         # Add current user's message
-        messages.append({"role": "user", "content": f"{user_message} k"})
+        messages.append({"role": "user", "content": f"{user_message}"})
         chat_params = self.formatModelParameters(
             self.model, temperature, max_tokens, messages
         )
@@ -78,20 +77,20 @@ class LLMApp:
 
         assistant_message = response.choices[0].message.content
 
+        # Persist conversation history for this session
+        try:
+            # store both the user and assistant messages
+            self.conversation_history.append({"role": "user", "content": f"{user_message}"})
+            self.conversation_history.append({"role": "assistant", "content": assistant_message})
+        except Exception:
+            # If anything goes wrong while persisting history, ignore to avoid breaking the response
+            pass
+
         return assistant_message
 
-    def getModelInfo(self, model_name):
-        if model_name.startswith("openai/") or model_name in [
-            "gpt-5",
-            "gpt-5-mini",
-            "gpt-5-nano",
-        ]:
-            return "OpenAI"
-        else:
-            return "Groq"
 
     def formatModelParameters(self, model_name, temperature, max_tokens, messages):
-        model_info = self.getModelInfo(model_name)
+        model_info = get_provider(model_name)
 
         base_params = {
             "model": model_name,
@@ -116,3 +115,5 @@ if __name__ == "__main__":
     message = input("What do you want to ask: ")
     response = app.chat(message)
     print(f"\nAssistant Response: {response}\n")
+
+
