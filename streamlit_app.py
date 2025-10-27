@@ -155,7 +155,7 @@ class ChatInterface:
                 type="password",
                 help="Enter your Groq or OpenAI API key",
                 key="api_key_input",
-                value=st.session_state.get("api_key", ""),
+                # value=st.session_state.get("api_key", ""),
             )
             st.session_state.api_key = api_key
 
