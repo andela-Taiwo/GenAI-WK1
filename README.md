@@ -43,7 +43,21 @@ A sophisticated Streamlit-based chat application that supports both **Groq** and
 - OpenAI API Key ([Get one here](https://platform.openai.com/))
 - Streamlit: For building the interactive web frontend.
 - python-dotenv: For loading environment variables (API keys).
-- uv (or pip, conda, poetry): For virtual environment and dependency management.
+- [UV](https://github.com/astral-sh/uv) - The ultra-fast Python package installer
+
+
+ ### Installation with UV
+
+  1. **Install UV** (if you haven't already):
+     ```bash
+     # On macOS/Linux
+     curl -LsSf https://astral.sh/uv/install.sh | sh
+
+     # On Windows
+     powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+     # Or via pip
+     pip install uv
 
 ### Installation
 
@@ -52,5 +66,11 @@ A sophisticated Streamlit-based chat application that supports both **Groq** and
    git clone https://github.com/andela-Taiwo/llm-chat-app.git
    cd llm-chat-app
 
-### Run the application
-- streamlit run main.py
+   # UV will automatically create a virtual environment
+    uv sync
+
+2. **Configure environment**
+   - cp .env.example .env
+
+3. ### Run the application
+   - streamlit run main.py
